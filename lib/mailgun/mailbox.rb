@@ -86,14 +86,6 @@ module Mailgun
       end
     end
 
-    def self.wait_for_email(subject, to_address, timeout=nil)
-      timeout = @mailbox_timeout if timeout.nil?
-      to_address=@generated_email if to_address.nil?
-      ::Mailgun::WaitUntil::wait_until(timeout, message="Email to '#{to_address}' with subject '#{subject}' was not found within #{@mailbox_timeout}") do
-        look_for_email(subject, to_address)
-      end
-    end
-
     def self.get_message_urls(to_address)
       t = events_request({:params => {:recipient => to_address}})
       return if t['items'].count==0
