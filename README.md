@@ -43,7 +43,7 @@ puts email
 Mailgun::Mailbox.delete_emails_to!(email_address)
 ````
 
-## Testing page
+## Testing package
 
     $ cucumber MAILGUN_API_KEY=<your api key> MAILGUN_HOST=<your domain name registered with mailgun> SMTP_PASSWORD=<smtp password provided by mailgun for your domain>
 
