@@ -1,4 +1,4 @@
-require "mailgun/mailbox/version"
+require 'mailgun/mailbox/version'
 require 'rest_client'
 require 'json'
 require 'mail'
@@ -50,6 +50,7 @@ module Mailgun
 
       return if m.nil?
 
+      found_message = nil
       found_message = m.text_part.decoded if m.text_part
       found_message = m.html_part.decoded if m.html_part and found_message.nil?
       found_message = m.body.decoded if found_message.nil?
@@ -63,7 +64,7 @@ module Mailgun
 
     def get_message_by_mid(message_id)
       t = events_request({:params => {'message-id' => message_id}})
-      return if !t.has_key?("items")
+      return if !t.has_key?('items')
       return if t['items'].count==0
       return if !t['items'][0].has_key?('storage')
       get_first_message(t)
@@ -144,7 +145,7 @@ module Mailgun
     module_function
     # @return [String] = random email address with Mailgun user Domain
     def generate_email
-      @generated_email = "bot_test_runner+#{Time.now.strftime("%Y%m%d_%H%M%S")}_#{Random.rand(999)}@#{@mailbox_domain}"
+      @generated_email = "bot_test_runner+#{Time.now.strftime('%Y%m%d_%H%M%S')}_#{Random.rand(999)}@#{@mailbox_domain}"
     end
 
     module_function
